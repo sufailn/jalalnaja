@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-script: "Great Vibes", "Alex Brush", cursive;
+  --font-cinzel: "Cinzel", Georgia, serif;
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-arabic: "Amiri", serif;
+
+  --color-olive-deep: #414B2E;
+  --color-olive-forest: #35432B;
+  --color-olive-sage: #899477;
+  --color-ivory-antique: #F4F0E6;
+  --color-cream-warm: #E9E1D1;
+  --color-gold-vintage: #B59A65;
+  --color-gold-light: #D4AF37;
+  --color-gold-deep: #96783B;
+  --color-burgundy-muted: #542D3A;
+  --color-charcoal-soft: #37352F;
+}
+
+/* Editorial Typography System with Custom Kerning & Refined Leading */
+.font-serif {
+  font-family: var(--font-serif);
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.editorial-display {
+  font-family: var(--font-serif);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
+  text-rendering: optimizeLegibility;
+}
+
+.editorial-h1 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.022em;
+  line-height: 1.14;
+  font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
+  text-rendering: optimizeLegibility;
+}
+
+.editorial-h2 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.018em;
+  line-height: 1.2;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
+.editorial-h3 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.012em;
+  line-height: 1.28;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.editorial-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  letter-spacing: -0.008em;
+  line-height: 1.62;
+  text-wrap: balance;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.editorial-subhead {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+}
+
+.editorial-kicker {
+  font-family: var(--font-cinzel);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+
+/* Custom Paper Texture and Aesthetics */
+.paper-grain {
+  background-color: #F4F0E6;
+  background-image: radial-gradient(#37352f12 0.75px, transparent 0.75px), radial-gradient(#414b2e10 0.75px, #F4F0E6 0.75px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+.paper-grain-cream {
+  background-color: #E9E1D1;
+  background-image: radial-gradient(#414b2e15 0.75px, transparent 0.75px), radial-gradient(#542d3a0d 0.75px, #E9E1D1 0.75px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+.olive-pattern-bg {
+  background-color: #414B2E;
+  background-image: radial-gradient(#B59A6525 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Gold Metallic Foil Gradient */
+.gold-foil-text {
+  background: linear-gradient(135deg, #8A6E35 0%, #C8AB6E 30%, #F5DE9C 50%, #B59A65 75%, #7D5F26 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-foil-border {
+  border-image: linear-gradient(135deg, #B59A65, #E5CE9F, #8A6E35, #D4AF37) 1;
+}
+
+/* Wax Seal 3D Styling */
+.wax-seal {
+  background: radial-gradient(circle at 35% 35%, #773f51 0%, #542D3A 50%, #3a1c26 100%);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    inset 0 2px 4px rgba(255, 255, 255, 0.25),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.gold-seal {
+  background: radial-gradient(circle at 35% 35%, #e0c58e 0%, #B59A65 50%, #7d6332 100%);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* 3D Envelope Perspective */
+.perspective-1000 {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: clip;
+  background: #F4F0E6;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid #96783B;
+  outline-offset: 3px;
+}
+
+.hero-arch {
+  border-radius: clamp(6rem, 27vw, 13rem) clamp(6rem, 27vw, 13rem) 0 0;
+}
+
+.hero-name {
+  font-size: clamp(2.2rem, 7.6vw, 4.65rem);
+  line-height: 1.08;
+}
+
+.invitation-experience {
+  animation: experience-reveal 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes experience-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wax-seal-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+}
+
+.wax-seal-pulse {
+  animation: wax-seal-breathe 2.4s ease-in-out infinite;
+}
+
+@media (max-width: 360px) {
+  .editorial-kicker {
+    letter-spacing: 0.16em;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .opening-envelope-section {
+    justify-content: flex-start;
+    padding-block: 0.75rem;
+  }
+
+  .opening-envelope-heading {
+    margin-bottom: 0.75rem;
+  }
+
+  .opening-envelope-section .envelope-wrapper {
+    max-width: min(460px, 72vw, calc((100svh - 160px) * 1.32));
+  }
+
+  .opening-envelope-section .envelope-hint {
+    margin-top: 0.75rem;
+  }
+
+  .opening-envelope-section .envelope-hint p {
+    margin-top: 0.4rem;
+  }
+}
+
+/* Custom refined scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #E9E1D1;
+}
+::-webkit-scrollbar-thumb {
+  background: #899477;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #414B2E;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
