@@ -53,7 +53,7 @@ export default function App() {
             {/* SECTION 03: Two-Column Family Lineage Section */}
             <FamilySection weddingData={weddingData} />
 
-            {/* SECTION 04: Wedding Details & Live Countdown */}
+            {/* SECTION 04: Wedding Details & Calendar */}
             <WeddingDetails weddingData={weddingData} />
 
             {/* SECTION 05: Memorable Closing Section */}

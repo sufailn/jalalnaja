@@ -23,7 +23,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({
     >
       {/* Background Texture from Reference 3 (dark olive paper with repeated golden dot motifs) */}
       <div
-        className="absolute inset-0 opacity-25 pointer-events-none"
+        className="absolute inset-0 opacity-55 pointer-events-none"
         style={{
           backgroundImage: `url('/assets/aistudio/WhatsApp_Image_2026-10-31_at_2.30.28_PM_dbef1546.jpeg')`,
           backgroundSize: '280px auto',

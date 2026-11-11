@@ -146,6 +146,9 @@
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+  color-scheme: only light;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {

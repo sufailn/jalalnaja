@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, type ReactNode } from 'react';
 import { WeddingData } from '../data/weddingConfig';
 import { CornerOrnament, MughalArchMotif, OliveBranch, OrnamentalDivider, BackgroundBotanicals } from './FloralDecorations';
 import { Calendar, Clock, MapPin, Heart } from 'lucide-react';
@@ -9,12 +9,57 @@ interface InvitationCardProps {
   onOpenDetailsModal?: () => void;
 }
 
+function splitTime(time: string) {
+  const match = time.match(/^(.*?)\s+(Evening|Morning|Afternoon|Night)$/i);
+  if (!match) return { primary: time, secondary: 'Auspicious Hour' };
+  return { primary: match[1], secondary: match[2] };
+}
+
+function DetailRow({
+  icon,
+  label,
+  href,
+  children,
+}: {
+  icon: ReactNode;
+  label: string;
+  href?: string;
+  children: ReactNode;
+}) {
+  const className =
+    'group flex w-full min-w-0 flex-col items-center gap-2 border-b border-[#B59A65]/25 px-2 py-4 text-center last:border-b-0';
+  const body = (
+    <>
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#B59A65]/45 bg-white/80 text-[#96783B]">
+        {icon}
+      </span>
+      <span className="min-w-0">
+        <span className="block font-cinzel text-[10px] font-semibold uppercase tracking-[0.18em] text-[#899477]">
+          {label}
+        </span>
+        {children}
+      </span>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {body}
+      </a>
+    );
+  }
+
+  return <div className={className}>{body}</div>;
+}
+
 export const InvitationCard: React.FC<InvitationCardProps> = ({
   weddingData,
   onOpenDetailsModal,
 }) => {
   const containerRef = useRef<HTMLElement>(null);
   useSectionReveal(containerRef);
+  const timeParts = splitTime(weddingData.details.time);
 
   return (
     <section
@@ -55,7 +100,7 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
           data-section-reveal
           className="invitation-keepsake relative z-10 w-full max-w-2xl border border-[#B59A65]/60 bg-[#F8F5EC] p-1.5 text-center shadow-[0_30px_90px_rgba(53,67,43,0.2),0_8px_24px_rgba(84,45,58,0.08)] transition-shadow duration-700 sm:p-2.5"
         >
-          <div className="relative border border-[#B59A65]/40 bg-gradient-to-b from-[#FCFAF4] via-[#F8F5EC] to-[#F3EDDF] px-4 py-9 paper-grain sm:px-8 sm:py-11 md:px-12 md:py-14">
+          <div className="relative border border-[#B59A65]/40 bg-gradient-to-b from-[#FCFAF4] via-[#F8F5EC] to-[#F3EDDF] px-4 pt-9 pb-12 paper-grain sm:px-8 sm:pt-11 sm:pb-14 md:px-12 md:pt-14 md:pb-16">
           {/* Double-line thin decorative border */}
           <div className="absolute inset-2 sm:inset-3 border border-[#B59A65]/55 pointer-events-none rounded-xs" />
           <div className="absolute inset-3 sm:inset-4 border border-[#414B2E]/15 pointer-events-none rounded-xs" />
@@ -119,46 +164,49 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
             &ldquo;{weddingData.wording.invitationClosing}&rdquo;
           </p>
 
-          {/* Key Event Cards with Confirmed Details */}
-          <div className="grid grid-cols-1 gap-2.5 border-t border-[#B59A65]/35 pt-5 sm:grid-cols-3 sm:gap-3 sm:pt-6">
-            {/* Date / Day */}
-            <div className="group flex min-h-32 flex-col items-center justify-center rounded-sm border border-[#B59A65]/35 bg-gradient-to-b from-white/70 to-[#E9E1D1]/65 p-3.5 text-center shadow-[0_4px_12px_rgba(65,75,46,.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#B59A65]/60 hover:shadow-[0_8px_18px_rgba(65,75,46,.09)] sm:p-4">
-              <Calendar className="mb-1.5 h-4 w-4 text-[#96783B]" />
-              <span className="editorial-kicker text-[10px] text-[#899477] font-semibold">Date</span>
-              <span className="editorial-h3 text-xs sm:text-sm font-medium text-[#414B2E] mt-0.5">
+          {/* Key Event Details — row layout so the icon and time never collide on narrow phones */}
+          <div className="mt-2 border-t border-[#B59A65]/35">
+            <DetailRow icon={<Calendar className="h-4 w-4" />} label="Date">
+              <span className="block text-center font-serif text-base leading-snug font-medium text-[#2A3420]">
                 {weddingData.details.dateDisplay}
               </span>
-              <span className="editorial-quote text-[11px] text-[#542D3A]">
+              <span className="mt-0.5 block text-center font-serif text-sm italic leading-snug text-[#542D3A]">
                 {weddingData.details.day}
               </span>
-            </div>
+            </DetailRow>
 
-            {/* Time */}
-            <div className="group flex min-h-32 flex-col items-center justify-center rounded-sm border border-[#B59A65]/35 bg-gradient-to-b from-white/70 to-[#E9E1D1]/65 p-3.5 text-center shadow-[0_4px_12px_rgba(65,75,46,.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#B59A65]/60 hover:shadow-[0_8px_18px_rgba(65,75,46,.09)] sm:p-4">
-              <Clock className="mb-1.5 h-4 w-4 text-[#96783B]" />
-              <span className="editorial-kicker text-[10px] text-[#899477] font-semibold">Time</span>
-              <span className="editorial-h3 text-xs sm:text-sm font-medium text-[#414B2E] mt-0.5">
-                {weddingData.details.time}
+            <DetailRow icon={<Clock className="h-4 w-4" />} label="Time">
+              <span className="block text-center font-serif text-base leading-snug font-medium text-[#2A3420]">
+                {timeParts.primary}
               </span>
-              <span className="editorial-quote text-[11px] text-[#542D3A]">
-                Auspicious Hour
+              <span className="mt-0.5 block text-center font-serif text-sm italic leading-snug text-[#542D3A]">
+                {timeParts.secondary}
               </span>
-            </div>
+            </DetailRow>
 
-            {/* Venue & Google Maps */}
             <a
               href={weddingData.details.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex min-h-32 flex-col items-center justify-center rounded-sm border border-[#B59A65]/35 bg-gradient-to-b from-white/70 to-[#E9E1D1]/65 p-3.5 text-center shadow-[0_4px_12px_rgba(65,75,46,.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#B59A65]/60 hover:shadow-[0_8px_18px_rgba(65,75,46,.09)] sm:p-4"
+              className="group mt-3 flex w-full min-w-0 flex-col items-center gap-2 rounded-sm border border-[#B59A65]/55 bg-gradient-to-br from-[#414B2E] to-[#2A3420] px-4 py-5 text-center text-[#F8F5EC] shadow-[0_12px_28px_rgba(42,52,32,0.18)] transition-transform duration-300 hover:-translate-y-0.5"
             >
-              <MapPin className="w-4 h-4 text-[#542D3A] mb-1 group-hover:scale-110 transition-transform" />
-              <span className="editorial-kicker text-[10px] text-[#899477] font-semibold">Location</span>
-              <span className="editorial-h3 text-xs sm:text-sm font-medium text-[#414B2E] mt-0.5 group-hover:underline">
-                View on Google Maps
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#D4BF8E]/45 bg-[#F8F5EC]/10 text-[#D4BF8E]">
+                <MapPin className="h-5 w-5 transition-transform group-hover:scale-110" />
               </span>
-              <span className="editorial-kicker text-[9px] text-[#B59A65] mt-0.5">
-                Tap for Directions &rarr;
+              <span className="min-w-0">
+                <span className="block font-cinzel text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D4BF8E]">
+                  Location
+                </span>
+                <span className="mt-1 block font-serif text-[1.65rem] leading-tight text-[#F8F5EC]">
+                  {weddingData.details.venue}
+                </span>
+                <span className="mx-auto mt-1.5 block max-w-[16rem] font-serif text-sm leading-snug text-[#E9E1D1]">
+                  {weddingData.details.address.replace(/Kerala\s+/, 'Kerala\u00A0')}
+                </span>
+                <span className="mt-3 inline-flex items-center justify-center gap-1.5 font-cinzel text-[10px] uppercase tracking-[0.16em] text-[#D4BF8E]">
+                  Open in Google Maps
+                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+                </span>
               </span>
             </a>
           </div>
