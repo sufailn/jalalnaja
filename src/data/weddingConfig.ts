@@ -47,7 +47,7 @@ export const initialWeddingData: WeddingData = {
   groom: {
     name: "Muhammed Jalaludheen",
     father: "Yahiya T T",
-    mother: "Shameen T",
+    mother: "Shameena T",
     residence: "T T House",
     siblings: ["Ayisha Misiri"],
   },
